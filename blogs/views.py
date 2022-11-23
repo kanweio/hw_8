@@ -4,7 +4,7 @@ from datetime import datetime
 from blogs import models
 
 # Create your views here.
-from blogs.models import Post
+from blogs.models import Post, Comment, Hashtag
 
 
 def main(request):
@@ -17,15 +17,17 @@ def main(request):
         return render(request, 'layouts/main.html', context=data)
 
 
-def blogs_view(request):
+def posts_view(request):
     if request.method == 'GET':
-        posts = models.Post.objects.all()
-
-        data = {
+        hashtag_id = request.GET.get('hashtag_id')
+        if hashtag_id:
+            posts = Post.objects.filter(hashtag=Hashtag.objects.get(id=hashtag_id))
+        else:
+            posts = Post.objects.all()
+        context = {
             'posts': posts
         }
-
-        return render(request, 'post/posts.html', context=data)
+        return render(request, 'post/posts.html', context=context)
 
 
 def hashtags_view(request):
@@ -44,16 +46,6 @@ def hello(request):
         return HttpResponse('Hello, its my project!')
 
 
-def detail_view(request, **kwargs):
-    if request.method == 'GET':
-        post = Post.objects.get(id=kwargs['id'])
-        data = {
-            'post': post
-        }
-
-        return render(request, 'post/detail.html', context=data)
-
-
 def now_data(request):
     if request.method == 'GET':
         return HttpResponse(datetime.now())
@@ -62,3 +54,18 @@ def now_data(request):
 def bye(request):
     if request.method == 'GET':
         return HttpResponse('Goodbye!')
+
+
+def detail_view(request, **kwargs):
+    if request.method == 'GET':
+        post = Post.objects.get(id=kwargs['id'])
+        hashtag = Hashtag.objects.filter(posts=post)
+        comments = Comment.objects.filter(post=post)
+
+        data = {
+            'post': post,
+            'hashtag': hashtag,
+            'comments': comments
+        }
+
+        return render(request, 'post/detail.html', context=data)
