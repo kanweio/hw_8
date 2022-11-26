@@ -75,7 +75,7 @@ def detail_view(request, **kwargs):
         form = CommmentCreateForm(data=request.POST)
         if form.is_valid():
             Comment.objects.create(
-                author_id=2,
+                author_id=1,
                 text=form.cleaned_data.get('text'),
                 post_id=kwargs['id']
                 )

@@ -7,6 +7,6 @@ urlpatterns = [
     path('hashtags/', hashtags_view),
     path('posts/<int:id>/', detail_view),
     path('main/', main),
-    path('posts/create', create_posts_viev)
+    path('posts/create/', create_posts_viev)
 
 ]

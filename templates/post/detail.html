@@ -63,7 +63,7 @@
     <div class="create_comment">
      <form action="/posts/{{ post.id }}/" method="post">
         {% csrf_token %}
-        {{ form.as_div }}
+        {{ form }}
         <input type="submit" class="btn btn-primary" value="Оставить комментарий">
      </form>
     </div>
