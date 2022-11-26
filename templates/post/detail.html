@@ -7,17 +7,18 @@
             margin-left: 25%;
         }
 
-        .reviews {
+        .comments {
             width: 70%;
             margin-left: 15%;
         }
 
-        .reviews > div {
-            height: 45px;
+        .comments > div {
+            height: 55px;
             margin-bottom: 20px;
             background: #242b2e;
             padding: 10px;
         }
+
         .author {
             color: #fff;
             flex: 18px;
@@ -29,9 +30,21 @@
             font-size: 15px;
             font-family: sans-serif;
         }
+
         .post {
             width: 70%;
             margin-left: 15%;
+        }
+
+        .create_comment {
+            width: 70%;
+            margin-left: 15%;
+            margin-bottom: 40px;
+            margin-top: 20px;
+        }
+
+        textarea {
+            height: 30px;
         }
     </style>
     <div class="post">
@@ -47,7 +60,13 @@
             </div>
         </div>
     </div>
-    <div class="reviews">
+    <div class="create_comment">
+        <form action="/posts/{{ post.id }}/" method="post"></form>
+        {% csrf_token %}
+        {{ form.as_div }}
+        <input type="submit" class="btn btn-primary" value="Оставить комментарий">
+    </div>
+    <div class="comments">
         {% for comment in comments %}
             <div>
                 <p class="author">{{ comment.author.username }}</p>
@@ -55,6 +74,5 @@
             </div>
         {% endfor %}
     </div>
-
 
 {% endblock %}
