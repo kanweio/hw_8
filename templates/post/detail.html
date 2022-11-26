@@ -61,10 +61,11 @@
         </div>
     </div>
     <div class="create_comment">
-        <form action="/posts/{{ post.id }}/" method="post"></form>
+     <form action="/posts/{{ post.id }}/" method="post">
         {% csrf_token %}
         {{ form.as_div }}
         <input type="submit" class="btn btn-primary" value="Оставить комментарий">
+     </form>
     </div>
     <div class="comments">
         {% for comment in comments %}
