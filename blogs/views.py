@@ -6,6 +6,7 @@ from blogs import models
 # Create your views here.
 from blogs.models import Post, Comment, Hashtag
 from blogs.forms import PostCreateForm, CommmentCreateForm
+from users.utils import get_user_from_request
 
 
 def main(request):
@@ -13,7 +14,8 @@ def main(request):
         posts = models.Post.objects.all()
 
         data = {
-            'post': posts
+            'post': posts,
+            'user': get_user_from_request(request)
         }
         return render(request, 'layouts/main.html', context=data)
 
@@ -26,7 +28,8 @@ def posts_view(request):
         else:
             posts = Post.objects.all()
         context = {
-            'posts': posts
+            'posts': posts,
+            'user': get_user_from_request(request)
         }
         return render(request, 'post/posts.html', context=context)
 
@@ -36,7 +39,8 @@ def hashtags_view(request):
         hashtags = models.Hashtag.objects.all()
 
         data = {
-            'hashtags': hashtags
+            'hashtags': hashtags,
+            'user': get_user_from_request(request)
         }
 
         return render(request, 'hashtags/hashtags.html', context=data)
@@ -67,7 +71,8 @@ def detail_view(request, **kwargs):
             'post': post,
             'hashtag': hashtag,
             'comments': comments,
-            'form': CommmentCreateForm
+            'form': CommmentCreateForm,
+            'user': get_user_from_request(request)
         }
         return render(request, 'post/detail.html', context=data)
 
@@ -86,7 +91,8 @@ def detail_view(request, **kwargs):
             data = {
                 'comments': comments,
                 'post': post,
-                'form': form
+                'form': form,
+                'user': get_user_from_request(request)
 
             }
             return render(request, 'post/detail.html', context=data)
@@ -95,7 +101,8 @@ def detail_view(request, **kwargs):
 def create_posts_viev(request):
     if request.method == 'GET':
         data = {
-            'forms': PostCreateForm
+            'forms': PostCreateForm,
+            'user': get_user_from_request(request)
         }
         return render(request, 'post/create.html', context=data)
 
@@ -111,6 +118,7 @@ def create_posts_viev(request):
             return redirect(f'/posts/{post.id}')
         else:
             data = {
-                'form': form
+                'form': form,
+                'user': get_user_from_request(request)
             }
             return render(request, 'post/create.html', context=data)
