@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 
 from django.views import generic
 
-
 # Create your views here.
 from blogs.models import Post, Comment, Hashtag
 from blogs.forms import PostCreateForm, CommmentCreateForm

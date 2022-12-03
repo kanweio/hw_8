@@ -2,25 +2,33 @@
 
 {% block content %}
     <style type="text/css">
-        .hashtags {
+        .posts {
             display: flex;
-            width: auto;
+            justify-content: space-between;
+            margin-left: 10%;
+            width: 80%;
+            flex-wrap: wrap;
+        }
+
+        .search {
+            width: 80%;
             margin-left: 10%;
         }
     </style>
-    <div>
+    <div class="search">
         <form action="/posts/" method="get">
-            {% if hastag_id %}
-                <input type="hidden" name="hashtag_id" value="{{ hastag_id }}">
+            {% if hashtag_id %}
+                <input type="hidden" name="hashtag_id" value="{{ hashtag_id }}">
             {% endif %}
             <input type="text" name="search" value="">
+            <span>Search</span>
         </form>
     </div>
-    <div class="hashtags">
+    <div class="posts">
         {% for post in posts %}
-            <div class="card" style="width: 20%">
-                <div class="card-body">
-                    <h5 class="card-title">{{ post.title }}</h5>
+            <div class="card" style="width: 20%; margin: 20px;">
+                <div class="card_body">
+                    <h5>{{ post.title }}</h5>
                     <a href="/posts/{{ post.id }}/" class="btn btn-primary">More</a>
                 </div>
             </div>
@@ -28,8 +36,7 @@
     </div>
     <div>
         {% for page in max_page %}
-            <a href="/posts/?page=
-                    {{ page }}{% if hashtag_id %}&hashtag_id={{ hashtag_id }}{% endif %}{% if search_text %}&search={{ search_text }}{% endif %}">
+            <a href="/posts/?page={{ page }}">
                 <button style="width: 25px; height: 25px">{{ page }}</button>
             </a>
         {% endfor %}

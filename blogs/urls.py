@@ -1,11 +1,12 @@
 from django.urls import path
-from blogs.views import PostCreateView, HashtagListView, PostDetailView, PostListVIew
+from blogs.views import posts_view, HashtagAPIview, PostDetailView, main, CreatePostAPIview
  
 
 urlpatterns = [
-    path('posts/', PostListVIew.as_view()),
-    path('hashtags/', HashtagListView.as_view()),
-    path('posts/<int:id>/', PostDetailView.as_view()),
-    path('posts/create/', PostCreateView.as_view())
+    path('posts/', posts_view),
+    path('hashtags/', HashtagAPIview.as_view()),
+    path('posts/<int:pk>/', PostDetailView.as_view()),
+    path('main/', main),
+    path('posts/create/', CreatePostAPIview.as_view())
 
 ]
