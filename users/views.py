@@ -66,3 +66,5 @@ def register_view(request):
             'user': get_user_from_request(request)
         }
         return render(request, 'users/register.html', context=data)
+
+

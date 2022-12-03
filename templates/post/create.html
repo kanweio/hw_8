@@ -1,13 +1,11 @@
-{% extends 'layouts/main.html' %}
+{% extends "layouts/main.html" %}
 
 {% block content %}
     <div>
         <form action="/posts/create/" method="post">
             {% csrf_token %}
-            {{ forms.as_p }}
-            <input type="submit" value="Create Post" class="btn bth-primary">
-
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Создать">
         </form>
     </div>
-
 {% endblock %}
